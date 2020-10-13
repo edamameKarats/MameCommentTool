@@ -1,0 +1,23 @@
+
+.base{
+    color: #302833;
+}
+
+.background{
+    background: linear-gradient( #13547a,  #4992A0);
+}
+
+.form{
+    background: linear-gradient( #dcf8ea,  #edfcf4);
+}
+
+.button{
+    -webkit-app-region: no-drag;
+    background: linear-gradient( #72e2aa,  #95eabf);
+}
+
+.push{
+    background: linear-gradient( #1d8d55,  #23b16a);
+    color:#edfcf4;
+}
+

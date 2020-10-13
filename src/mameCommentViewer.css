@@ -1,0 +1,97 @@
+@import url(./mameCommentCommon.css);
+@import url(./mameCommentCommon.css);
+
+table{
+    width:100%;
+    table-layout: fixed;
+}
+
+th{
+    resize: horizontal;
+    overflow: hidden;
+    font-size: 12px;
+    color:#dcf8ea;
+}
+
+th[name="timeHead"]{
+    width:60px;
+}
+th[name="timeColumn"]{
+    width:60px;
+}
+th[name="imageHead"]{
+    width:30px;
+}
+th[name="imageColumn"]{
+    width:30px;
+}
+th[name="idColumn"]{
+    display:none;
+}
+th[name="nameHead"]{
+    width:100px;
+}
+th[name="nameColumn"]{
+    width:100px;
+}
+
+
+td{
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    font-size: 12px;
+}
+
+
+td[name="ids"]{
+    display:none;
+}
+
+body{
+    background:lightgreen;
+}
+
+#headerArea{
+    position:fixed;
+    top:0px;
+    left:0px;
+    width:100%;
+    background:transparent;
+}
+
+#tableArea{
+    position:absolute;
+    top:0px;
+    left:0px;
+    width:100%;
+    background:transparent;
+    padding-bottom: 55px;
+}
+
+#inputArea{
+    position:fixed;
+    top:calc(100vh - 55px);
+    left:0px;
+    width:100%;
+    bottom:0px;
+    background:lightgray;
+}
+
+#commentText{
+    position:fixed;
+    top:calc(100vh - 55px);
+    left:0px;
+    width:calc(100% - 100px);
+    bottom:0px;
+    resize:none;
+}
+
+
+#sendButton{
+    position:fixed;
+    right:0px;
+    top:calc(100vh - 55px);
+    bottom:0px;
+    width:100px;
+}

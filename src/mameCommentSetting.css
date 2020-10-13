@@ -1,0 +1,98 @@
+@import url(./mameCommentCommon.css);
+
+/*タブ切り替え全体のスタイル*/
+.tabs {
+    position:absolute;
+    top:5px;
+    left:5px;
+    width: calc(100vw - 10px);
+    height: calc(100vh - 37px);
+    background-color: transparent;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+  
+/*タブのスタイル*/
+.tab_item {
+    width: calc(100%/3);
+    height: 22px;
+    border-bottom: 3px solid transparent;
+    background: linear-gradient( #72e2aa,  #95eabf);
+    line-height: 22px;
+    font-size: 14px;
+    text-align: center;
+    display: block;
+    float: left;
+    text-align: center;
+    transition: all 0.2s ease;
+}
+.tab_item:hover {
+    opacity: 0.75;
+}
+
+/*ラジオボタンを全て消す*/
+input[name="tab_item"] {
+    display: none;
+}
+
+/*タブ切り替えの中身のスタイル*/
+.tab_content {
+    display: none;
+    clear: both;
+    overflow: hidden;
+    height: calc(100vh - 59px);
+    background: linear-gradient( #dcf8ea,  #edfcf4);
+
+}
+
+
+/*選択されているタブのコンテンツのみを表示*/
+#base:checked ~ #base_content,
+#board:checked ~ #board_content,
+#viewer:checked ~ #viewer_content {
+    display: block;
+}
+
+/*選択されているタブのスタイルを変える*/
+.tabs input:checked + .tab_item {
+    background:transparent;
+    color: #fff;
+}
+
+#buttonArea{
+    position:absolute;
+    bottom:5px;
+    left:5px;
+}
+
+.headerText{
+    font-size: 20px;
+}
+
+.titleText{
+    font-size: 16px;
+    margin:0 0 0 5;
+}
+
+.elementText{
+    font-size: 12px;
+    margin:0 0 0 10;
+}
+
+.detailText{
+    font-size: 10px;
+    word-wrap: break-word;
+    margin:0 0 0 15;
+}
+
+#tokenUrl{
+    background: linear-gradient( #72e2aa,  #95eabf);
+}
+
+#replyUrl{
+    width:80vw;
+}
+#logPath{
+    width:80vw;
+}
+
+  

@@ -1,0 +1,108 @@
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>MameComment v0.7.0 - Setting</title>
+  <link rel="stylesheet" type="text/css" href="./mameCommentSetting.css">
+</head>
+<body class="background">
+  <div class="tabs">
+    <input id="base" type="radio" name="tab_item" checked>
+    <label class="tab_item" for="base">基本</label>
+    <input id="board" type="radio" name="tab_item">
+    <label class="tab_item" for="board">ボード</label>
+    <input id="viewer" type="radio" name="tab_item">
+    <label class="tab_item" for="viewer">ビューワー</label>
+    <div class="tab_content" id="base_content">
+      <div class="headerText">基本設定</div>
+      <hr>
+      <div class="titleText">アクセストークンURL</div>
+      <div class="detailText">ツイキャスにアクセスするためのトークンを指定します。<br>
+        下記ボタンにてブラウザを開き認証を行うと、応答URLが自動で設定されます。<br>
+        うまくいかない場合はアクセス先をブラウザで開き、認証後のURL<br>
+        (http://localhost:8080/#access_token=xxxx・・・)を応答URLに貼り付けてください。
+      </div>
+      <div class="elementText"><input type="button" class="button" name="registButton" id="registButton" value="プログラム認証(ブラウザで開きます)" onClick="regist()"><br>
+        アクセス先(うまく行かない場合)：
+      </div>
+      <div class="detailText" id="tokenUrl">
+        https://apiv2.twitcasting.tv/oauth2/authorize?client_id=2671027374.f688b31afb4ae712724112e8ff419ae4c376a54f35f762bc047403ef6e56918d&response_type=token
+      </div>
+      <div class="elementText">
+        応答URL: <input type="text" id='replyUrl'>
+      </div>
+      <hr>
+      <div class="titleText">
+        ログ出力
+      </div>
+      <div class="detailText">
+        日時+放送ユーザーIDでログファイルを出力するかどうかを設定します。<br>
+      出力する場合は出力先も合わせて設定して下さい。
+      </div>
+      <div class="elementText">
+        <input type="checkbox" name="logChkBox" id="logCheckBox">出力する<br>
+        出力先: <input type="text" id='logPath'>
+      </div>
+    </div>
+    <div class="tab_content" id="board_content">
+      <div class="headerText">
+        ボード設定
+      </div>
+      <hr>
+      <div class="titleText">
+        配置・サイズ
+      </div>
+      <div class="detailText">
+        ボードの配置場所・ウインドウサイズを指定します。<br>
+        ボード表示後にドラッグで変更することも可能です。
+      </div>
+      <div class="elementText">
+        横位置：<input type="text" id="boardX"    > 縦位置：<input type="text" id="boardY"><br>
+        横幅　：<input type="text" id="boardWidth"> 縦幅　：<input type="text" id="boardHeight">
+      </div>
+      <hr>
+      <div class="titleText">
+        行数
+      </div>
+      <div class="detailText">
+        ボードで使用するコメントを表示する行数を指定します。<br>
+        フォントサイズは、行数によって自動設定されます。
+      </div>
+      <div class="elementText">
+        行数：<input type="text" id="boardLineNum"><br>
+      </div>
+      <hr>
+      <div class="titleText">
+        フォント色・背景色
+      </div>
+      <div class="detailText">
+        ボードで使用するフォントおよび背景の色を指定します。
+      </div>
+      <div class="elementText">
+        フォント色：<input type="color" id="boardFontColor"> 背景色：<input type="color" id="boardBackgroundColor">
+      </div>
+    </div>
+    <div class="tab_content" id="viewer_content">
+      <div class="headerText">
+        ビューワー設定
+      </div>
+      <hr>
+      <div class="titleText">
+        配置・サイズ
+      </div>
+      <div class="detailText">
+        ビューワーの配置場所・ウインドウサイズを指定します。<br>
+        ビューワー表示後にドラッグで変更することも可能です。
+      </div>
+      <div class="elementText">
+        横位置：<input type="text" id="viewerX"    > 縦位置：<input type="text" id="viewerY"><br>
+        横幅　：<input type="text" id="viewerWidth"> 縦幅　：<input type="text" id="viewerHeight">
+      </div>
+    </div>
+  </div>
+  <div id="buttonArea">
+    <input type="button" class="button" name="saveButton" id="saveButton" value="保存" onClick="save()"/>
+    <input type="button" class="button" name="canselButton" id="canselButton" value="キャンセル" onClick="cansel()"/>
+  </div>
+</body>
+<script type="text/javascript" src="./mameCommentSetting.js"></script>
+</html>

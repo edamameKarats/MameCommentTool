@@ -1,0 +1,60 @@
+@import url(./mameCommentCommon.css);
+
+#titleImage{
+    position:absolute;
+    top:5px;
+    left:5px;
+}
+#accountFrame{
+    position:absolute;
+    top:5px;
+    left:84px;
+    right:5px;
+    height: 74px;
+}
+#accountImage{
+    position:absolute;
+    top:10px;
+    right:10px;
+}
+
+#getFrame{
+    position:absolute;
+    top:84px;
+    left:5px;
+    right:5px;
+    height: 50px;
+}
+
+#movieUserId{
+    position:absolute;
+    top:110px;
+    left:110px;
+    width:300px;
+}
+#getButton{
+    position:absolute;
+    top:108px;
+    left:415px;
+}
+
+#boardButton{
+    position:absolute;
+    top:140px;
+    left:5px;
+    width:154px;
+}
+
+#viewerButton{
+    position:absolute;
+    top:140px;
+    left:166px;
+    width:154px;
+}
+
+#settingButton{
+    position:absolute;
+    top:140px;
+    left:327px;
+    width:154px;
+}

@@ -1,0 +1,39 @@
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>MameComment v0.7.0 - Viewer</title>
+  <link rel="stylesheet" type="text/css" href="./mameCommentViewer.css">
+</head>
+<body class=background>
+  <div id='tableArea'>
+    <table id='commentTable'>
+      <thead>
+        <tr>
+          <th name="timeColumn" class='background'><span ></span></th>
+          <th name="imageColumn" class='background'><span ></span></th>
+          <th name="idColumn" class='background'><span></span></th>
+          <th name="nameColumn" class='background'><span ></span></th>
+          <th name="commentColumn" class='background'><span ></span></th>
+        </tr>
+      </thead>
+      <tbody id='commentBody'>
+      </tbody>
+    </table>
+  </div>
+  <div id='headerArea'>
+    <table>
+      <thead>
+        <tr>
+          <th name="timeHead" class='background'><span id="TIME"></span></th>
+          <th name="imageHead" class='background'><span id="IMAGE"></span></th>
+          <th name="idColumn" class='background'><span id="ID"></span></th>
+          <th name="nameHead" class='background'><span id="NAME"></span></th>
+          <th name="commentHead" class='background'><span id="COMMENT"></span></th>
+        </tr>
+      </thead>    
+    </table>
+  </div>
+  <div id='inputArea'><textarea id='commentText'></textarea><input id='sendButton' type='button' value='send' class='button' onclick='sendButtonClicked()'></div>
+</body>
+<script type="text/javascript" src="./mameCommentViewer.js"></script>
+</html>

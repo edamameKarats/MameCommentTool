@@ -1,0 +1,18 @@
+@import url(./mameCommentCommon.css);
+body{
+    -webkit-app-region: drag;
+    overflow-x: hidden;
+}
+
+#commentArea{
+    background-color: green;
+    height: calc(100vh - 41px);
+}
+
+#commentArea.trans{
+    background:transparent;
+}
+
+#ALWAYS_ON_TOP{
+    color:#dcf8ea;
+}

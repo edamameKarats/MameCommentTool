@@ -1,0 +1,16 @@
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>MameComment v0.7.0 - Board</title>
+  <link rel="stylesheet" type="text/css" href="./mameCommentBoard.css">
+</head>
+<body>
+  <div class="background" id="headerBackground">
+    <button onclick="changeTrans()" class="button"><span id="BOARD_TRANS_CHANGE"></span></button>
+    <span><input id="frontCheck" type="checkbox" onchange="changeFront()"><span id="ALWAYS_ON_TOP"></span></span>
+    <button onclick="closeButtonClicked()" class="button"><span id="CLOSE"></span></button>
+  </div>
+  <div id="commentArea"></div>
+</body>
+<script type="text/javascript" src="./mameCommentBoard.js"></script>
+</html>

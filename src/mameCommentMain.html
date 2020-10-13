@@ -1,0 +1,27 @@
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>MameComment v0.7.0</title>
+  <link rel="stylesheet" type="text/css" href="./mameCommentMain.css">
+</head>
+
+<body class="background" style="-webkit-app-region: drag;">
+  <img id="titleImage" src="./resources/title.jpg" width="74" height="74" alt="Title">
+  <div class="form" id="accountFrame">
+    <span id="ACCOUNT_INFO"></span><br>
+    　<span id="USERNAME"></span>:<span id="accountUserName"></span><br>
+    　<span id="USERID"></span>:<span id="accountUserId"></span>
+  </div>
+  <img id="accountImage" src="./resources/blank.jpg" width="64" height="64" alt="Image">
+  <div class="form" id="getFrame">
+    <span id="GET_INFO"></span>:<br>
+    　<span id="GET_USERID"></span>:
+  </div>
+  <input id="movieUserId"></input>
+  <button class="button" id="getButton" onclick="getButtonClicked()"><span id="GET_"></span></button>
+  <button class="button" id="boardButton" onclick="boardButtonClicked()"><span id="BOARD_"></span></button>
+  <button class="button" id="viewerButton" onclick="viewerButtonClicked()"><span id="VIEWER_"></span></button>
+  <button class="button" id="settingButton" onclick="settingButtonClicked()"><span id="SETTING_"></span></button>
+</body>
+<script type="text/javascript" src="./mameCommentMain.js"></script>
+</html>
