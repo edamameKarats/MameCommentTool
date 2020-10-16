@@ -107,6 +107,26 @@ function writeCommentFromArray(commentArray){
 
 function writeComment(time,image,name,id,comment){
     let table=document.getElementById('commentBody');
+    if(table.children.length==0){
+        let headRow=table.insertRow();
+
+        let headCell=headRow.insertCell();
+        let headText=document.createTextNode('---');
+        headCell.appendChild(headText);
+
+        headCell=headRow.insertCell();
+        headText=document.createTextNode('---');
+        headCell.appendChild(headText);
+
+        headCell=headRow.insertCell();
+        headText=document.createTextNode('---');
+        headCell.appendChild(headText);
+
+        headCell=headRow.insertCell();
+        headText=document.createTextNode('---');
+        headCell.appendChild(headText);
+    }
+
     let newRow=table.insertRow();
     let newCell=newRow.insertCell();
     let newText=document.createTextNode(time);

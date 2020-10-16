@@ -2,7 +2,7 @@ const {app, BrowserWindow, ipcRenderer} = require('electron');
 const ipcMain = require( 'electron' ).ipcMain;
 const MameCommentSettingData=require('./mameCommentSettingData');
 const MameCommentConstants=require('./mameCommentConstants');
-
+const fs=require('fs');
 
 //各ウインドウを定義
 let mainWindow=null;
@@ -19,6 +19,9 @@ let mainWindowFlag=0;
 let boardWindowFlag=0;
 let viewerWindowFlag=0;
 let settingWindowFlag=0;
+
+//TODO 設定ファイル配置用ディレクトリは、Windows/Linuxだと足元、Macだと~/Libary/Application\ Support/MameComment・・・だと思う。
+let osArch=process.platform;
 
 
 
@@ -390,7 +393,7 @@ function settingWindowClosed(){
 //登録を開く
 function createRegistWindow(){
   registWindow = new BrowserWindow({
-    width: 640.0, height: 360.0,
+    width: 640.0, height: 640.0,
     webPreferences:{
       nodeIntegration: true,
       webviewTag: true
