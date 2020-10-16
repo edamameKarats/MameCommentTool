@@ -21,9 +21,9 @@ function chkMovie(){
     }
     if(movieData[1]==false){
         console.log('ユーザーは現在放送中ではありません。');
-//        return movie_id='ユーザーは現在放送中ではありません。';
+        return movie_id='ユーザーは現在放送中ではありません。';
 //test logic
-        return movieData[0];
+//        return movieData[0];
     }
     return movieData[0];
 }

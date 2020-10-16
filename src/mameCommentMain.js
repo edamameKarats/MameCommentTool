@@ -62,21 +62,27 @@ ipcRenderer.on('windowResponse',(ev,message)=>{
     if(message=='boardOpened'){
         console.log('Board is opened.');
         document.getElementById('boardButton').classList.add('push');
+        document.getElementById("BOARD_").innerText=dictionary["BOARD_CLOSE"];
     }else if(message=='boardClosed'){
         console.log('Board is closed.');
         document.getElementById('boardButton').classList.remove('push');
+        document.getElementById("BOARD_").innerText=dictionary["BOARD_OPEN"];
     }else if(message=='viewerOpened'){
         console.log('Viewer is opened.');
         document.getElementById('viewerButton').classList.add('push');
+        document.getElementById("VIEWER_").innerText=dictionary["VIEWER_CLOSE"];
     }else if(message=='viewerClosed'){
         console.log('Viewer is closed.');
         document.getElementById('viewerButton').classList.remove('push');
+        document.getElementById("VIEWER_").innerText=dictionary["VIEWER_OPEN"];
     }else if(message=='settingOpened'){
         console.log('Setting is opened.');
         document.getElementById('settingButton').classList.add('push');
+        document.getElementById("SETTING_").innerText=dictionary["SETTING_CLOSE"];
     }else if(message=='settingClosed'){
         console.log('Setting is closed.');
         document.getElementById('settingButton').classList.remove('push');
+        document.getElementById("SETTING_").innerText=dictionary["SETTING_OPEN"];
     }
 });
 
