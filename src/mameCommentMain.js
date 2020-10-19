@@ -8,6 +8,7 @@ let mameCommentTwitCasting=new MameCommentTwitCasting();
 let mameCommentSettingData=new MameCommentSettingData();
 
 let getThread;
+let getId;
 
 function boardButtonClicked(){
     console.log('Board button clicked.');
@@ -27,30 +28,38 @@ function settingButtonClicked(){
 function getButtonClicked(){
     console.log('Get button clicked. ');
     if (document.getElementById('getButton').textContent==dictionary["GET_START"]){
-        getThread=new Worker('mameCommentGetThread.js');
-        getThread.addEventListener('message',(message)=>{
-            if(message.data=='started'||message.data=='stopped') {
-                changeGetButton(message.data);
-            }else if(String(message.data).match(/^error,/)) {
-                console.log(message.data);
-            }else{
-                ipcRenderer.send( 'notifyComment' , message.data );
-            }
-        });
-        getThread.postMessage('user;'+document.getElementById('movieUserId').value);
-        getThread.postMessage(mameCommentSettingData);
-        getThread.postMessage('startRequest');
+        var getScreen=document.getElementById('movieUserId').value;
+        if(getScreen!=''&&document.getElementById("accountUserId").innerText!=''){
+            getThread=new Worker('mameCommentGetThread.js');
+            getThread.addEventListener('message',(message)=>{
+                if(String(message.data).match(/^started,/)||message.data=='stopped') {
+                    changeGetButton(message.data);
+                }else if(String(message.data).match(/^error,/)) {
+                    console.log(message.data);
+                }else{
+                    ipcRenderer.send( 'notifyComment' , message.data );
+                }
+            });
+            getThread.postMessage('user;'+getScreen);
+            getThread.postMessage(mameCommentSettingData);
+            getThread.postMessage('startRequest');
+        }else{
+            console.log('account='+document.getElementById("accountUserId").innerText+',movie='+getScreen);
+        }
     }else if (document.getElementById('getButton').textContent==dictionary["GET_END"]){
         getThread.postMessage('stopRequest');
     }
 }
 
 function changeGetButton(message){
-    if(message=='started'){
+    if(message.match(/^started,/)){
         document.getElementById('getButton').textContent=dictionary["GET_END"];
+        getId=message.split(',')[1];
+        ipcRenderer.send('getStarted',getId);
     }else if(message=='stopped'){
         console.log('change to start.');
         document.getElementById('getButton').textContent=dictionary["GET_START"];
+        ipcRenderer.send('getStopped','');
     }else{
         //コメント送信
         ipcRenderer.send('notifyComment',message);
@@ -100,6 +109,12 @@ ipcRenderer.on('settingUpdate',(ev,message)=>{
         document.getElementById("accountUserId").innerText=userData[1];
         document.getElementById("accountImage").src=userData[2];
     }
+});
+
+//POSTリクエストを受信
+ipcRenderer.on('postRequest',(ev,message)=>{
+    console.log('post request received.');
+    mameCommentTwitCasting.postCommentData(getId,message,'none',mameCommentSettingData.tokenId);
 });
 
 

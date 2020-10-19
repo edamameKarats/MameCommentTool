@@ -16,7 +16,6 @@ class MameCommentTwitCasting {
         return result;
     }
 
-
     getMovieData(screen_id,ACCESS_TOKEN){
         var result=[];
         if(screen_id==undefined||screen_id==null||screen_id==""){
@@ -54,21 +53,20 @@ class MameCommentTwitCasting {
     postCommentData(movie_id,comment,sns,ACCESS_TOKEN){
         var result=false;
         var postData='{"comment" : "'+comment+'", "sns" : "'+sns+'"}';
-        var resultString=this.postCommentWrapper(movie_id,postData,ACCESS_TOKEN);
-        var jsonObject=JSON.parse(resultString.replace(/\n/g,'\\n'));
-        if(jsonObject.comment.created!=null&&jsonObject.comment.ceated!=undefined&&jsonObject.comment.created!=''){
+        var resultJSON=this.postCommentWrapper(movie_id,postData,ACCESS_TOKEN);
+        console.log(resultJSON);
+        resultJSON.comment.message=resultJSON.comment.message.replace(/\n/g,'\\n');
+        if(resultJSON.comment.created!=null&&resultJSON.comment.ceated!=undefined&&resultJSON.comment.created!=''){
             result=true;
         }
         return result;
     }
-
 
     getUserInfoWrapper(screen_id,ACCESS_TOKEN){
         var result;
         result=this.execGetRequest('https://apiv2.twitcasting.tv/users/'+screen_id,ACCESS_TOKEN);
         return result;
     }
-
 
     verifyCredentialsWrapper(ACCESS_TOKEN){
         var result;
@@ -119,14 +117,16 @@ class MameCommentTwitCasting {
         if(ACCESS_TOKEN==undefined||ACCESS_TOKEN==null||ACCESS_TOKEN==""){
             return null;
         }
-        var xmlHttpRequest=new XMLHttpRequest();
-        xmlHttpRequest.open('GET',url,false);
-        xmlHttpRequest.setRequestHeader('Accept','application/json');
-        xmlHttpRequest.setRequestHeader('X-Api-Version','2.0');
-        xmlHttpRequest.setRequestHeader('Authorization','Bearer '+ACCESS_TOKEN);
+
+        var xmlHttpPost=new XMLHttpRequest();
+ 
+        xmlHttpPost.open('POST',url,false);
+        xmlHttpPost.setRequestHeader('Accept','application/json');
+        xmlHttpPost.setRequestHeader('X-Api-Version','2.0');
+        xmlHttpPost.setRequestHeader('Authorization','Bearer '+ACCESS_TOKEN);
 //        xmlHttpRequest.responseType = 'json';
-        xmlHttpRequest.send( data );
-        return JSON.parse(xmlHttpRequest.response);
+        xmlHttpPost.send( data );
+        return JSON.parse(xmlHttpPost.response);
     }
 
     compareFunc(a,b){

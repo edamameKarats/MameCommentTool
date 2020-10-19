@@ -13,6 +13,10 @@ let registWindow=null;
 
 //GET用のワーカースレッドを定義
 let getThread=null;
+//GETステータスフラグを定義
+let getFlag=0;
+//GETしているmovie_idを定義
+let movie_id;
 
 //各ウインドウの開閉フラグを定義
 let mainWindowFlag=0;
@@ -22,8 +26,6 @@ let settingWindowFlag=0;
 
 //TODO 設定ファイル配置用ディレクトリは、Windows/Linuxだと足元、Macだと~/Libary/Application\ Support/MameComment・・・だと思う。
 let osArch=process.platform;
-
-
 
 //設定クラスの作成と、初期読み込みをここで実行
 let mameCommentSettingData=new MameCommentSettingData();
@@ -123,6 +125,22 @@ ipcMain.on( 'topRequest', ( ev, message )=>{
   }
 
 });
+
+//ワーカースレッドから、開始した連絡を受けたらフラグを立てる
+ipcMain.on( 'getStarted', (ev, message)=>{
+  console.log('worker started.');
+  getFlag=1;
+  console.log(message);
+  movie_id=message;
+});
+
+//ワーカースレッドから、開始した連絡を受けたらフラグを消す
+ipcMain.on( 'getStopped', (ev, message)=>{
+  console.log('worker stopped.');
+  getFlag=0;
+  movie_id='';
+});
+
 
 //ワーカースレッドから、コメントを取得した連絡を受けたときの動作
 ipcMain.on ( 'notifyComment', (ev, message)=>{
@@ -276,10 +294,6 @@ function createViewerWindow(){
     viewerWindow.webContents.send('getColumnData','');
   })
   
-  // ウインドウが閉じたときの動作
-//  viewerWindow.on('closed', function () {
-//    viewerWindowClosed();
-//  })
 }
 
 //ビューワーウインドウから開いた通知を受信したときの動作
@@ -292,6 +306,19 @@ ipcMain.on('viewerReady', (ev,message)=>{
   viewerWindow.webContents.send('settingUpdate',mameCommentSettingData);
   //メインウインドウに、設定が開いたことを通知する
   mainWindow.webContents.send('windowResponse','viewerOpened');
+});
+
+//ビューワーウインドウからコメント送信のリクエストを受信したときの動作
+ipcMain.on('submitComment',(ev,message)=>{
+  console.log('submit request received.');
+  if(getFlag==1){
+    console.log('submit request.');
+    console.log(movie_id+','+mameCommentSettingData.tokenId);
+    //メインウインドウにPOSTしてもらう
+    mainWindow.webContents.send('postRequest',message);
+  }else{
+    console.log('worker is not active.');
+  }
 });
 
 
