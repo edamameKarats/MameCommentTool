@@ -6,7 +6,7 @@
     top:5px;
     left:5px;
     width: calc(100vw - 10px);
-    height: calc(100vh - 37px);
+    height: calc(100vh - 45px);
     background-color: transparent;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
@@ -39,7 +39,7 @@ input[name="tab_item"] {
     display: none;
     clear: both;
     overflow: hidden;
-    height: calc(100vh - 59px);
+    height: calc(100vh - 67px);
     background: linear-gradient( #dcf8ea,  #edfcf4);
 
 }

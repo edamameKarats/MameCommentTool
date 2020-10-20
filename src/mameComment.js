@@ -163,7 +163,7 @@ ipcMain.on ( 'notifyComment', (ev, message)=>{
 // メインのウインドウを開いていく
 function createMainWindow() {
   mainWindow = new BrowserWindow({
-    width: 486, height: 190,resizable: false,
+    width: 493, height: 200,resizable: false,
     webPreferences:{
       nodeIntegration: true,
       nodeIntegrationInWorker: true
@@ -359,7 +359,7 @@ function viewerWindowClosed(){
 //設定を開く
 function createSettingWindow(){
   settingWindow = new BrowserWindow({
-    width: 640.0, height: 430.0,
+    width: 640.0, height: 460.0,
     webPreferences:{
       nodeIntegration: true
     }

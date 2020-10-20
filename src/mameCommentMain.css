@@ -23,7 +23,7 @@
     top:84px;
     left:5px;
     right:5px;
-    height: 50px;
+    height: 55px;
 }
 
 #movieUserId{
@@ -40,21 +40,21 @@
 
 #boardButton{
     position:absolute;
-    top:140px;
+    top:145px;
     left:5px;
-    width:154px;
+    width:155px;
 }
 
 #viewerButton{
     position:absolute;
-    top:140px;
-    left:166px;
-    width:154px;
+    top:145px;
+    left:169px;
+    width:155px;
 }
 
 #settingButton{
     position:absolute;
-    top:140px;
-    left:327px;
-    width:154px;
+    top:145px;
+    left:333px;
+    width:155px;
 }

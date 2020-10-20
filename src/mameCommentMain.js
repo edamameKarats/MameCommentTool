@@ -1,5 +1,4 @@
 const ipcRenderer = require( 'electron' ).ipcRenderer;
-const dialog = require('electron').remote.dialog;
 const fs=require('fs');
 const MameCommentSettingData=require('./mameCommentSettingData');
 const MameCommentConstants=require('./mameCommentConstants');

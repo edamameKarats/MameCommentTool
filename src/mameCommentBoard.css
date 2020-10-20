@@ -6,7 +6,7 @@ body{
 
 #commentArea{
     background-color: green;
-    height: calc(100vh - 41px);
+    height: calc(100vh - 43px);
 }
 
 #commentArea.trans{
