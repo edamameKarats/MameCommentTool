@@ -17,7 +17,7 @@ function boardButtonClicked(){
 
 function viewerButtonClicked(){
     ipcRenderer.send('debugLog','Viewer button is clicked.')
-    ipcRenderer.send('debugLog','Send Viewer window request event to Main.')
+    ipcRenderer.send('infoLog','Send Viewer window request event to Main.')
     ipcRenderer.send( 'windowRequest', 'viewer' );    
 }
 

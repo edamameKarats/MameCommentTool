@@ -19,7 +19,6 @@ function chkMovie(){
         return movie_id='ユーザーが見つかりませんでした。';
     }
     if(movieData[1]==false){
-        console.log('ユーザーは現在放送中ではありません。');
 //        return movie_id='ユーザーは現在放送中ではありません。';
 //test logic
         return movieData[0];
@@ -51,7 +50,6 @@ async function start(){
 }
 
 self.addEventListener('message',(message)=>{
-    console.log('received '+message.data);
     if(message.data=='startRequest'){
         start();
     }else if(message.data=='stopRequest'){

@@ -6,29 +6,30 @@ const ipcRenderer = require( 'electron' ).ipcRenderer;
 let mameCommentSettingData=new MameCommentSettingData();
 
 function save(){
-    console.log('close with save.');
+    ipcRenderer.send('debugLog','Close with save.');
     saveValueToSettingData();
     mameCommentSettingData.copyUrlToToken();
     mameCommentSettingData.writeToIni();
     //メインに設定情報を送る
+    ipcRenderer.send('debugLog','Send setting update event to main.');
     ipcRenderer.send('settingUpdate',mameCommentSettingData);
     //ウインドウを閉じる
     self.close();
 }
 
 function cansel(){
-    console.log('close without save.');
+    ipcRenderer.send('debugLog','Close without save.');
     //ウインドウを閉じる
     self.close();
 }
 
 function regist(){
-    console.log('regist token.');
+    ipcRenderer.send('debugLog','Regist token. Send window request event to main.');
     ipcRenderer.send('windowRequest','regist');
 }
 
 function setValueFromSettingData(){
-    console.log('set from SettingData.');
+    ipcRenderer.send('debugLog','Set values from setting data.');
     document.getElementById('replyUrl').value=mameCommentSettingData.replyUrl;
     if (mameCommentSettingData.logFlg=='true'){
         document.getElementById('logCheckBox').checked=true;
@@ -50,7 +51,7 @@ function setValueFromSettingData(){
 }
 
 function saveValueToSettingData(){
-    console.log('save to SettingData.');
+    ipcRenderer.send('debugLog','Save vaues to setting data.');
     mameCommentSettingData.replyUrl=document.getElementById('replyUrl').value;
     mameCommentSettingData.copyUrlToToken();
     mameCommentSettingData.logFlg=document.getElementById('logCheckBox').checked;
@@ -69,18 +70,19 @@ function saveValueToSettingData(){
 }
 
 //準備完了を通知
-console.log('send settingReady event.');
+ipcRenderer.send('debugLog','Send setting ready event to main.');
 ipcRenderer.send('settingReady','');
 
 //準備完了後、メインから設定情報が飛んできたら反映する
 ipcRenderer.on('settingUpdate',(ev,message)=>{
-    console.log('setting update');
+    ipcRenderer.send('debugLog','Setting update event received.');
     mameCommentSettingData.setFromJson(message);
     setValueFromSettingData();
 });
 
 //登録画面からメインを通じてURL情報が飛んできたら設定する
 ipcRenderer.on('tokenUrlInfo', (ev,message)=>{
+    ipcRenderer.send('debugLog','Token info event received.');
     document.getElementById('replyUrl').value=message;
 });
 

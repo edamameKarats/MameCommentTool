@@ -33,7 +33,7 @@
       </thead>    
     </table>
   </div>
-  <div id='inputArea'><textarea id='commentText'></textarea><input id='sendButton' type='button' value='send' class='button' onclick='sendButtonClicked()'></div>
+  <div id='inputArea'><textarea id='commentText' onkeyup='showLength(value);'></textarea><div id='countArea'></div><input id='sendButton' type='button' value='send' class='button' onclick='sendButtonClicked()'></div>
 </body>
 <script type="text/javascript" src="./mameCommentViewer.js"></script>
 </html>

@@ -38,7 +38,7 @@ function setValueFromSettingData(){
         //10行表示なので、行数は10で割ったあまりになる
         var rowNum=i%10;
         //画面サイズに応じた自動での位置と、フォントサイズの変更、設定に応じた変更
-        commentText[i].style=('position:absolute;top:calc((100% - 55px) / 10 * '+rowNum+' + 31px);font-size:9vh;left:100%;line-height:9vh;color: '+mameCommentSettingData.boardFontColor+';');
+        commentText[i].style=('position:absolute;top:calc((100% - 55px) / 10 * '+rowNum+' + 31px);font-size:9vh;left:100%;line-height:9vh;color: '+mameCommentSettingData.boardFontColor+';white-space: nowrap;');
 
         commentIsTransition[i]=false;
         commentArea.appendChild(commentText[i]);
@@ -91,17 +91,19 @@ function sendComment(comment){
             ipcRenderer.send('debugLog','Label id='+i+' is not used.');
             //コメントの中で、改行の数を数える
             var count=(comment.match(/\n/g)||[]).length;
-            ipcRenderer.send('New line number in comment is '+count+'.');
+            ipcRenderer.send('debugLog','New line number in comment is '+count+'.');
 
             //TODO 行数可変にするならここをいじる　番号を10で割ったあまりと行数を足した値が10より小さければ、画面内に収まるので選択する
             if(i%10+count<10){
                 ipcRenderer.send('debugLog','Label id='+i+' is high enough for display comment with new line.');
                 //使用中に変更する
                 commentIsTransition[i]=true;
-                //コメントを設定する
-                commentText[i].textContent=comment;
+                commentText[i].textContent='';
+                if(commentText[i].hasChildNodes()){
+                    commentText[i].removeChild();
+                }
                 //幅が変になるので、うまく改行するために色々する
-                var lines=commentText[i].textContent.split('\n');
+                var lines=comment.split('\n');
                 var tmpDiv=document.createElement('div');
                 var maxLength=0;
                 for(var j=0;j<lines.length;j++){
@@ -113,8 +115,17 @@ function sendComment(comment){
                         maxLength=tmpDiv.clientWidth;
                     }
                     commentArea.removeChild(tmpDiv);
+                    if(j==0){
+                        commentText[i].textContent=lines[0];
+                    }else{
+                        var tmpSpan=document.createElement('div');
+                        tmpSpan.textContent=lines[j];
+                        commentText[i].appendChild(tmpSpan);
+                    }
                 }
-                commentText[i].style.width=maxLength+'px';
+                ipcRenderer.send('debugLog','Max length is '+maxLength);
+                commentText[i].clientWidth=maxLength;
+                commentText[i].style.width=(maxLength)+'px';
                 //コメントを動かす
                 ipcRenderer.send('debugLog','Move comment in 5s from right to left.');
                 commentText[i].style.transition='all 5s linear';
@@ -166,3 +177,5 @@ ipcRenderer.on('settingUpdate',(ev,message)=>{
 });
 
 
+
+  

@@ -54,7 +54,6 @@ class MameCommentTwitCasting {
         var result=false;
         var postData='{"comment" : "'+comment+'", "sns" : "'+sns+'"}';
         var resultJSON=this.postCommentWrapper(movie_id,postData,ACCESS_TOKEN);
-        console.log(resultJSON);
         resultJSON.comment.message=resultJSON.comment.message.replace(/\n/g,'\\n');
         if(resultJSON.comment.created!=null&&resultJSON.comment.ceated!=undefined&&resultJSON.comment.created!=''){
             result=true;

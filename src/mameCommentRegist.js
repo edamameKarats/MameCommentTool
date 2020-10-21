@@ -2,7 +2,6 @@ const ipcRenderer = require( 'electron' ).ipcRenderer;
 
 function handleEvent(event){
     var webView=document.getElementById('foo');
-    console.log(webView.getURL());
     if(webView.getURL().match('^http://localhost:8080*')){
         console.log('local urlstring is detected.');
         ipcRenderer.send('tokenUrlInfo',webView.getURL());

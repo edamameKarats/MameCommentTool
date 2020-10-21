@@ -7,8 +7,8 @@ const MameCommentCommon=require('./mameCommentCommon');
 let mameCommentCommon=new MameCommentCommon();
 
 //デバッグフラグ
-let debugFlg='ON';
-//let debugFlg='OFF';
+//let debugFlg='ON';
+let debugFlg='OFF';
 
 //各ウインドウを定義
 let mainWindow=null;
@@ -17,8 +17,6 @@ let viewerWindow=null;
 let settingWindow=null;
 let registWindow=null;
 
-//GET用のワーカースレッドを定義
-let getThread=null;
 //GETステータスフラグを定義
 let getFlag=0;
 //GETしているmovie_idを定義
@@ -73,7 +71,7 @@ ipcMain.on( 'settingUpdate', ( ev, message ) => {
 //メインウインドウから開いた通知を受信したときの動作
 ipcMain.on('mainReady', (ev,message)=>{
   //メインウインドウが無事開けたので、フラグをONにする
-  writeDebugLog('[main process] MainWindow ready event received.');
+  writeInfoLog('[main process] MainWindow ready event received.');
   mainWindowFlag=1;
   //メインウインドウに設定情報を渡す
   writeDebugLog('[main process] Send update event to MainWindow.');
@@ -89,12 +87,12 @@ ipcMain.on( 'windowRequest', ( ev, message ) => {
     writeDebugLog('[main process] This is board event.');
     //ボードが開いていない場合は、開く
     if(boardWindowFlag==0){
-      writeDebugLog('[main process] Board is not opened. Open window.');
+      writeInfoLog('[main process] Board is not opened. Open window.');
       createBoardWindow();
     }
     //開いている場合は閉じる
     else{
-      writeDebugLog('[main process] Board is opened. Close window.');
+      writeInfoLog('[main process] Board is opened. Close window.');
       closeBoardWindow();
     }
   }
@@ -103,12 +101,12 @@ ipcMain.on( 'windowRequest', ( ev, message ) => {
     writeDebugLog('[main process] This is viewer event.');
     //ビューワーが開いていない場合は、開く
     if(viewerWindowFlag==0){
-      writeDebugLog('[main process] Viewer is not opened. Open window.');
+      writeInfoLog('[main process] Viewer is not opened. Open window.');
       createViewerWindow();
     }
     //開いている場合は閉じる
     else{
-      writeDebugLog('[main process] Viewer is opened. Close window.');
+      writeInfoLog('[main process] Viewer is opened. Close window.');
       closeViewerWindow();
     }
   }
@@ -117,18 +115,18 @@ ipcMain.on( 'windowRequest', ( ev, message ) => {
     writeDebugLog('[main process] This is setting event.');
     //設定が開いていない場合は、開く
     if(settingWindowFlag==0){
-      writeDebugLog('[main process] Setting is not opened. Open window.');
+      writeInfoLog('[main process] Setting is not opened. Open window.');
       createSettingWindow();
     }
     //開いている場合は閉じる
     else{
-      writeDebugLog('[main process] Setting is opened. Close window.');
+      writeInfoLog('[main process] Setting is opened. Close window.');
       closeSettingWindow();
     }
   }
   //登録に関する要求のとき
   else if(message=='regist'){
-    writeDebugLog('[main process] This is registration event. Open window.');
+    writeInfoLog('[main process] This is registration event. Open window.');
     //複数開いてもいいことにする
     createRegistWindow();
   }
@@ -136,7 +134,7 @@ ipcMain.on( 'windowRequest', ( ev, message ) => {
 
 //ボードウインドウから、ボードの最前面表示に関するリクエストを受けたときの動作
 ipcMain.on( 'topRequest', ( ev, message )=>{
-  writeDebugLog('[main process] Board window on top event received.');
+  writeInfoLog('[main process] Board window on top event received.');
     //trueのメッセージなら最前面表示ON、そうでなければOFFにする
   if(message==true){
     writeDebugLog('[main process] Request is true.');
@@ -149,25 +147,25 @@ ipcMain.on( 'topRequest', ( ev, message )=>{
 
 //ワーカースレッドから、開始した連絡を受けたらフラグを立てる
 ipcMain.on( 'getStarted', (ev, message)=>{
-  writeDebugLog('[main process] Worker started event received.');
+  writeInfoLog('[main process] Worker started event received.');
   getFlag=1;
   movie_id=message;
   writeDebugLog('[main process] Worker is working with '+movie_id);
   //ログフラグがONならログファイルを開く
   if(mameCommentSettingData.logFlg==true&&mameCommentSettingData.logPath!=''){
-    writeDebugLog('[main process] Log flg is ON. Open comment log file.');
-    commentFd=mameCommentCommon.openLog(mameCommentSettingData.logPath,'a');
+    writeInfoLog('[main process] Log flg is ON. Open comment log file.');
+    commentFd=mameCommentCommon.openLog(mameCommentSettingData.logPath,'w');
   }
 });
 
 //ワーカースレッドから、開始した連絡を受けたらフラグを消す
 ipcMain.on( 'getStopped', (ev, message)=>{
-  writeDebugLog('[main process] Worker stopped event received.');
+  writeInfoLog('[main process] Worker stopped event received.');
   getFlag=0;
   movie_id='';
   //ログフラグがONならログファイルを閉じる
   if(mameCommentSettingData.logFlg==true&&mameCommentSettingData.logPath!=''){
-    writeDebugLog('[main process] Log flg is ON. Close comment log file.');
+    writeInfoLog('[main process] Log flg is ON. Close comment log file.');
     mameCommentCommon.closeLog(commentFd);
   }
 });
@@ -179,6 +177,10 @@ ipcMain.on ( 'notifyComment', (ev, message)=>{
   //メッセージが配列で送られてくる
   //形式：[[slice_id,created,user_image,name,message,screen_id],[],...]
   //TODO ログがONの場合は、配列をそのままログ出力関数に投げる
+  if(mameCommentSettingData.logFlg==true&&mameCommentSettingData.logPath!=''){
+    writeDebugLog('[main process] Log flag is on. Write comment log.');
+    writeCommentArray(message);
+  }
   //ボードが開いている場合は、配列をそのまま投げる
   if(boardWindowFlag==1){
     writeDebugLog('[main process] Board window is opend. Send comment to Board.');
@@ -195,7 +197,7 @@ ipcMain.on ( 'notifyComment', (ev, message)=>{
 
 // メインのウインドウを開いていく
 function createMainWindow() {
-  writeDebugLog('[main process] Start to open Main window.');
+  writeInfoLog('[main process] Start to open Main window.');
   mainWindow = new BrowserWindow({
     width: 493, height: 200,resizable: false,
     webPreferences:{
@@ -229,9 +231,7 @@ function createMainWindow() {
     if(settingWindow!=null){
         closeSettingWindow();
     }
-    writeDebugLog('[main process] Quit process.');
-    //ログを閉じる関数を呼び出す
-    mameCommentCommon.closeLog(logFd);
+    writeInfoLog('[main process] Quit process.');
   });
   writeDebugLog('[main process] Send initial setting event to Main window.');
   mainWindow.webContents.send('initialSetting',mameCommentSettingData);
@@ -241,7 +241,7 @@ function createMainWindow() {
 
 //ボードを開く
 function createBoardWindow(){
-  writeDebugLog('[main process] Start to open Board window.');
+  writeInfoLog('[main process] Start to open Board window.');
   let boardOption={
     x: parseInt(mameCommentSettingData.boardX), y: parseInt(mameCommentSettingData.boardY),
     width: parseInt(mameCommentSettingData.boardWidth), height: parseInt(mameCommentSettingData.boardHeight),
@@ -314,13 +314,13 @@ function boardWindowClosed(){
 
   //ボードが無事閉じられたので、フラグをOFFにする
   boardWindowFlag=0;
-  writeDebugLog('[main process] Board close completed.');
+  writeInfoLog('[main process] Board close completed.');
 }
 
 
 //ビューワーを開く
 function createViewerWindow(){
-  writeDebugLog('[main process] Start to open Viewer window.');
+  writeInfoLog('[main process] Start to open Viewer window.');
   let viewerOption={
     x: parseInt(mameCommentSettingData.viewerX), y: parseInt(mameCommentSettingData.viewerY),
     width: parseInt(mameCommentSettingData.viewerWidth), height: parseInt(mameCommentSettingData.viewerHeight),
@@ -413,14 +413,14 @@ function viewerWindowClosed(){
 
   //ビューワーが無事閉じられたので、フラグをOFFにする
   viewerWindowFlag=0;
-  writeDebugLog('[main process] Viewer close completed.');
+  writeInfoLog('[main process] Viewer close completed.');
 }
 
 
 
 //設定を開く
 function createSettingWindow(){
-  writeDebugLog('[main process] Start to open Setting window.');
+  writeInfoLog('[main process] Start to open Setting window.');
 
   settingWindow = new BrowserWindow({
     width: 640.0, height: 460.0,
@@ -485,13 +485,13 @@ function settingWindowClosed(){
   }
   //設定が無事閉じられたので、フラグをOFFにする
   settingWindowFlag=0;
-  writeDebugLog('[main process] Setting close completed.');
+  writeInfoLog('[main process] Setting close completed.');
 }
 
 
 //登録を開く
 function createRegistWindow(){
-  writeDebugLog('[main process] Start to open Regist window.');
+  writeInfoLog('[main process] Start to open Regist window.');
 
   registWindow = new BrowserWindow({
     width: 640.0, height: 640.0,
@@ -536,16 +536,25 @@ function writeDebugLog(logMessage){
     mameCommentCommon.writeLog('[Debug      ] '+logMessage,logFd);
   }
 }
-
 //情報ログ出力
 function writeInfoLog(logMessage){
   mameCommentCommon.writeLog('[Information] '+logMessage,logFd);
 }
 //エラーログ出力
 function writeErrorLog(logMessage){
-  mameCommentCommon.writeLog('[!!!Error!!!] '+logMessage,commentFd);
+  dialog.showErrorBox('Error','logMessage');
+  mameCommentCommon.writeLog('[!!!Error!!!] '+logMessage,logFd);
 }
+//コメント配列処理
+//形式：[[slice_id,created,user_image,name,message,screen_id],[],...]
+function writeCommentArray(array){
+  for(i=0;i<array.length;i++){
+    var commentData=array[i];
+    writeCommentLog(commentData[3]+','+commentData[4]);
+  }
+}
+
 //コメントログ出力
 function writeCommentLog(logMessage){
-  mameCommentCommon.writeLog(logMessage,mameCommentSettingData.logPath);
+  mameCommentCommon.writeLog(logMessage,commentFd);
 }
