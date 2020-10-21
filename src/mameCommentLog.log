@@ -1,0 +1,64 @@
+2020/10/03 09:41:13 [Information] [main process] Initial setting load process completed.
+2020/10/03 09:41:14 [Debug      ] [main process] Start to open Main window.
+2020/10/03 09:41:14 [Debug      ] [main process] Send initial setting event to Main window.
+2020/10/03 09:41:16 [Debug      ] [main process] MainWindow ready event received.
+2020/10/03 09:41:16 [Debug      ] [main process] Send update event to MainWindow.
+2020/10/03 09:41:21 [Debug      ] [mameCommentMain] Board button is clicked.
+2020/10/03 09:41:21 [Debug      ] [mameCommentMain] Send Board window request event to Main.
+2020/10/03 09:41:21 [Debug      ] [main process] Window event received.
+2020/10/03 09:41:21 [Debug      ] [main process] This is board event.
+2020/10/03 09:41:21 [Debug      ] [main process] Board is not opened. Open window.
+2020/10/03 09:41:21 [Debug      ] [main process] Start to open Board window.
+2020/10/03 09:41:21 [Debug      ] [mameCommentBoard] Board is ready to start.
+2020/10/03 09:41:21 [Debug      ] [main process] Board window ready event received.
+2020/10/03 09:41:21 [Debug      ] [main process] Send setting update event to Board window.
+2020/10/03 09:41:21 [Debug      ] [main process] Send Board window opened event to Main window.
+2020/10/03 09:41:21 [Debug      ] [mameCommentBoard] Setting update event received.
+2020/10/03 09:41:21 [Debug      ] [mameCommentBoard] Set values.
+2020/10/03 09:41:24 [Debug      ] [mameCommentBoard] Change trans button is clicked.
+2020/10/03 09:41:24 [Debug      ] [mameCommentBoard] Change to transparent.
+2020/10/03 09:41:25 [Debug      ] [mameCommentBoard] Change trans button is clicked.
+2020/10/03 09:41:25 [Debug      ] [mameCommentBoard] Change to bgColor.
+2020/10/03 09:41:27 [Debug      ] [mameCommentBoard] Close button is clicked. Close window.
+2020/10/03 09:41:27 [Debug      ] [main process] Board window will close. Save window bounds to ini file.
+2020/10/03 09:41:27 [Debug      ] [main process] Board window closed.
+2020/10/03 09:41:27 [Debug      ] [main process] Board window is closed. Start after process.
+2020/10/03 09:41:27 [Debug      ] [main process] Send Board window closed event to Main window.
+2020/10/03 09:41:27 [Debug      ] [main process] Board close completed.
+2020/10/03 09:41:28 [Debug      ] [mameCommentMain] Viewer button is clicked.
+2020/10/03 09:41:28 [Debug      ] [mameCommentMain] Send Viewer window request event to Main.
+2020/10/03 09:41:28 [Debug      ] [main process] Window event received.
+2020/10/03 09:41:28 [Debug      ] [main process] This is viewer event.
+2020/10/03 09:41:28 [Debug      ] [main process] Viewer is not opened. Open window.
+2020/10/03 09:41:28 [Debug      ] [main process] Start to open Viewer window.
+2020/10/03 09:41:28 [Debug      ] [main process] Viewer window ready event received.
+2020/10/03 09:41:28 [Debug      ] [main process] Send setting update event to Viewer window.
+2020/10/03 09:41:28 [Debug      ] [main process] Send Viewer window opened event to Main window.
+2020/10/03 09:41:32 [Debug      ] [mameCommentMain] Viewer button is clicked.
+2020/10/03 09:41:32 [Debug      ] [mameCommentMain] Send Viewer window request event to Main.
+2020/10/03 09:41:32 [Debug      ] [main process] Window event received.
+2020/10/03 09:41:32 [Debug      ] [main process] This is viewer event.
+2020/10/03 09:41:32 [Debug      ] [main process] Viewer is opened. Close window.
+2020/10/03 09:41:32 [Debug      ] [main process] Viewer close function called. Close Viewer.
+2020/10/03 09:41:32 [Debug      ] [main process] Viewer window will close. Save window bounds to ini file.
+2020/10/03 09:41:32 [Debug      ] [main process] Sent column data requset event to Viewer window.
+2020/10/03 09:41:32 [Debug      ] [main process] Viewer column data event received. Write data to ini file.
+2020/10/03 09:41:32 [Debug      ] [main process] Destroy Viewer.
+2020/10/03 09:41:32 [Debug      ] [main process] Viewer window is closed. Start after process.
+2020/10/03 09:41:32 [Debug      ] [main process] Send Viewer window closed event to Main window.
+2020/10/03 09:41:32 [Debug      ] [main process] Viewer close completed.
+2020/10/03 09:41:33 [Debug      ] [mameCommentMain] Setting button is clicked.
+2020/10/03 09:41:33 [Debug      ] [mameCommentMain] Send Setting window request event to Main.
+2020/10/03 09:41:33 [Debug      ] [main process] Window event received.
+2020/10/03 09:41:33 [Debug      ] [main process] This is setting event.
+2020/10/03 09:41:33 [Debug      ] [main process] Setting is not opened. Open window.
+2020/10/03 09:41:33 [Debug      ] [main process] Start to open Setting window.
+2020/10/03 09:41:33 [Debug      ] [main process] Setting window ready event received..
+2020/10/03 09:41:33 [Debug      ] [main process] Send setting update event to Setting window.
+2020/10/03 09:41:33 [Debug      ] [main process] Send Setting window opened event to Main window.
+2020/10/03 09:41:39 [Debug      ] [main process] Setting window closed.
+2020/10/03 09:41:39 [Debug      ] [main process] Setting window is closed. Start after process.
+2020/10/03 09:41:39 [Debug      ] [main process] Send Setting window closed event to Main window.
+2020/10/03 09:41:39 [Debug      ] [main process] Setting close completed.
+2020/10/03 09:41:41 [Information] [main process] Main window closed.
+2020/10/03 09:41:41 [Debug      ] [main process] Quit process.

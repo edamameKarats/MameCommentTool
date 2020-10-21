@@ -1,3 +1,10 @@
 {
-  "main": "mameComment.js"
+  "name": "mame_comment",
+  "version": "0.6.0",
+  "main": "mameComment.js",
+  "author": "Edamame",
+  "license": "Apache 2.0",
+  "devDependencies": {
+    "electron": "7.1.11"
+  }
 }

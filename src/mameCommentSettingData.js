@@ -50,7 +50,6 @@ class MameCommentSettingData {
     }
 
     writeToIni(){
-        console.log('write');
         let data='replyUrl='+this.replyUrl+'\n';
         data=data+'tokenId='+this.tokenId+'\n';
         data=data+'logFlg='+this.logFlg+'\n';

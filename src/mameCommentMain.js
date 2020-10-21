@@ -10,42 +10,52 @@ let getThread;
 let getId;
 
 function boardButtonClicked(){
-    console.log('Board button clicked.');
+    ipcRenderer.send('debugLog','Board button is clicked.')
+    ipcRenderer.send('debugLog','Send Board window request event to Main.')
     ipcRenderer.send( 'windowRequest', 'board' );    
 }
 
 function viewerButtonClicked(){
-    console.log('Viewer button clicked.');
+    ipcRenderer.send('debugLog','Viewer button is clicked.')
+    ipcRenderer.send('debugLog','Send Viewer window request event to Main.')
     ipcRenderer.send( 'windowRequest', 'viewer' );    
 }
 
 function settingButtonClicked(){
-    console.log('Setting button clicked.');
+    ipcRenderer.send('debugLog','Setting button is clicked.')
+    ipcRenderer.send('debugLog','Send Setting window request event to Main.')
     ipcRenderer.send( 'windowRequest', 'setting' );    
 }
 
 function getButtonClicked(){
-    console.log('Get button clicked. ');
+    ipcRenderer.send('debugLog','Get button is clicked.')
     if (document.getElementById('getButton').textContent==dictionary["GET_START"]){
+        ipcRenderer.send('debugLog','Start to get comment.')
         var getScreen=document.getElementById('movieUserId').value;
+        ipcRenderer.send('debugLog','Target user is '+getScreen+', Current user is '+document.getElementById("accountUserId").innerText+'.');
         if(getScreen!=''&&document.getElementById("accountUserId").innerText!=''){
+            ipcRenderer.send('debugLog','Call Get thread.');
             getThread=new Worker('mameCommentGetThread.js');
             getThread.addEventListener('message',(message)=>{
                 if(String(message.data).match(/^started,/)||message.data=='stopped') {
+                    ipcRenderer.send('debugLog','Started or Stopped event received from Get thread.');
                     changeGetButton(message.data);
                 }else if(String(message.data).match(/^error,/)) {
-                    console.log(message.data);
+                    ipcRenderer.send('errorLog','Error message received from Get thread: '+message.data);
                 }else{
+                    ipcRenderer.send('debugLog','Comment data received from Get thread.');
                     ipcRenderer.send( 'notifyComment' , message.data );
                 }
             });
+            ipcRenderer.send('debugLog','Send data and start request to Get thread.');
             getThread.postMessage('user;'+getScreen);
             getThread.postMessage(mameCommentSettingData);
             getThread.postMessage('startRequest');
         }else{
-            console.log('account='+document.getElementById("accountUserId").innerText+',movie='+getScreen);
+            ipcRenderer.send('errorLog','Target user: '+getScreen + ' or, Current user: '+document.getElementById("accountUserId").innerText+' is not defined correctly.');
         }
     }else if (document.getElementById('getButton').textContent==dictionary["GET_END"]){
+        ipcRenderer.send('debugLog','Stop to get.')
         getThread.postMessage('stopRequest');
     }
 }

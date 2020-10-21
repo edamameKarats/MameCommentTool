@@ -5,12 +5,7 @@ body{
 }
 
 #commentArea{
-    background-color: green;
     height: calc(100vh - 43px);
-}
-
-#commentArea.trans{
-    background:transparent;
 }
 
 #ALWAYS_ON_TOP{

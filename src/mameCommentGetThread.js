@@ -15,15 +15,14 @@ function sleep(msec){
 
 function chkMovie(){
     movieData=mameCommentTwitCasting.getMovieData(getUserName,mameCommentSettingData.tokenId);
-    console.log(movieData);
     if(movieData==undefined||movieData==null||movieData[0]==''||movieData[0]==null){
         return movie_id='ユーザーが見つかりませんでした。';
     }
     if(movieData[1]==false){
         console.log('ユーザーは現在放送中ではありません。');
-        return movie_id='ユーザーは現在放送中ではありません。';
+//        return movie_id='ユーザーは現在放送中ではありません。';
 //test logic
-//        return movieData[0];
+        return movieData[0];
     }
     return movieData[0];
 }
@@ -34,7 +33,7 @@ async function start(){
     if(movie_id=='ユーザーが見つかりませんでした。'||movie_id=='ユーザーは現在放送中ではありません。'){
         self.postMessage('error,'+movie_id);
     }else{
-        self.postMessage('started');
+        self.postMessage('started,'+movie_id);
         var last_id=0;
         while(true){
             if(stopFlg===1){

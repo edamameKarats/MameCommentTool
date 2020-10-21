@@ -17,6 +17,7 @@ document.getElementById("CLOSE").innerText=dictionary["CLOSE"];
 
 
 function setValueFromSettingData(){
+    ipcRenderer.send('debugLog','Set values.');
     commentArea.style.backgroundColor=mameCommentSettingData.boardBackgroundColor;
     //コメントの文字列がすでにある場合は削除する
     for(var i=0;i<commentText.length;i++){
@@ -53,38 +54,48 @@ function setValueFromSettingData(){
 
 
 function closeButtonClicked(){
+    ipcRenderer.send('debugLog','Close button is clicked. Close window.');
     this.close();
 }
 
 function changeTrans(){
-    if(commentArea.classList.length==0){
-        commentArea.classList.add('trans');
+    ipcRenderer.send('debugLog','Change trans button is clicked.');
+    if(commentArea.style.backgroundColor!='transparent'){
+        ipcRenderer.send('debugLog','Change to transparent.');
+        commentArea.style.backgroundColor='transparent';
     }else{
-        commentArea.classList.remove('trans');
+        ipcRenderer.send('debugLog','Change to bgColor.');
+        commentArea.style.backgroundColor=mameCommentSettingData.boardBackgroundColor;
     }
 }
 
 function changeFront(){
+    ipcRenderer.send('debugLog','Change front button clicked. Send top request event to Main.');
     ipcRenderer.send( 'topRequest', frontCheck.checked );    
 }
 
 async function sendCommentFromArray(arrayString){
     for(var i=0;i<arrayString.length;i++){
+        ipcRenderer.send('debugLog','Send comment array No.'+i+' and sleep 20ms.');
         sendComment(arrayString[i][4]);
         await sleep(20);
     }
 }
 
 function sendComment(comment){
-
+    ipcRenderer.send('debugLog','Send Comment requested.');
     //条件に合いそうなものを探していく
     for(var i=0;i<250;i++){
         //現在使用中のものでないものをまず選ぶ
         if(commentIsTransition[i]==false){
+            ipcRenderer.send('debugLog','Label id='+i+' is not used.');
             //コメントの中で、改行の数を数える
             var count=(comment.match(/\n/g)||[]).length;
+            ipcRenderer.send('New line number in comment is '+count+'.');
+
             //TODO 行数可変にするならここをいじる　番号を10で割ったあまりと行数を足した値が10より小さければ、画面内に収まるので選択する
             if(i%10+count<10){
+                ipcRenderer.send('debugLog','Label id='+i+' is high enough for display comment with new line.');
                 //使用中に変更する
                 commentIsTransition[i]=true;
                 //コメントを設定する
@@ -105,24 +116,28 @@ function sendComment(comment){
                 }
                 commentText[i].style.width=maxLength+'px';
                 //コメントを動かす
+                ipcRenderer.send('debugLog','Move comment in 5s from right to left.');
                 commentText[i].style.transition='all 5s linear';
-                commentText[i].style.transform='translateX(-'+(commentArea.clientWidth+commentText[i].clientWidth)+'px)';
+                commentText[i].style.transform='translateX(-'+(commentArea.clientWidth+maxLength)+'px)';
                 break;
             }
         }
         if(i==249){
             //どこにも引っかからなかった場合(全て使用中だったり、改行が条件に満たなかったり)は、一時的にdivを追加する
+            ipcRenderer.send('debugLog','All label is not match. Create tmp div.');
             var tmpText=document.createElement('div');
             //画面サイズに応じた自動での位置と、フォントサイズの変更
             tmpText.style=('position:absolute;top:31px;font-size:10vh;left:100%;');
             tmpText.textContent=commnent;
             commentArea.appendChild(tmpText);
             var width=tmpText.width;
-            commentArea.removeChild(tmpText);
             tmpText.addEventListener('transitionend',function(){
                 //終わったら削除する
                 commentArea.removeChild(this);
             });
+            ipcRenderer.send('debugLog','Move tmp div.');
+            tmpText.style.transition='all 5s linear';
+            tmpText.style.transform='translateX(-'+(commentArea.clintWidth+width)+'px)';
         }
     }
 }
@@ -135,16 +150,17 @@ function sleep(msec){
 
 //コメントを受け取ったときの処理
 ipcRenderer.on('notifyComment',(ev,message)=>{
+    ipcRenderer.send('debugLog','Receive notify comment event.');
     sendCommentFromArray(message);
 });
 
 //準備完了を通知
-console.log('send boardReady event.');
+ipcRenderer.send('debugLog','Board is ready to start.');
 ipcRenderer.send('boardReady','');
 
 //準備完了後、メインから設定情報が飛んできたら反映する
 ipcRenderer.on('settingUpdate',(ev,message)=>{
-    console.log('setting update');
+    ipcRenderer.send('debugLog','Setting update event received.');
     mameCommentSettingData.setFromJson(message);
     setValueFromSettingData();
 });
