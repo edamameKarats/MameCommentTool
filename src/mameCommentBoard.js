@@ -38,7 +38,7 @@ function setValueFromSettingData(){
         //10行表示なので、行数は10で割ったあまりになる
         var rowNum=i%10;
         //画面サイズに応じた自動での位置と、フォントサイズの変更、設定に応じた変更
-        commentText[i].style=('position:absolute;top:calc((100% - 55px) / 10 * '+rowNum+' + 33px);font-size:9vh;left:100%;line-height:9vh;color: '+mameCommentSettingData.boardFontColor+';white-space: nowrap;');
+        commentText[i].style=('position:absolute;top:calc((100% - 55px) / 10 * '+rowNum+' + 37px);font-size:9vh;left:100%;line-height:9vh;color: '+mameCommentSettingData.boardFontColor+';white-space: nowrap;');
 
         commentIsTransition[i]=false;
         commentArea.appendChild(commentText[i]);

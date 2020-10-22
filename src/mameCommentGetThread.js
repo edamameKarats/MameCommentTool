@@ -34,6 +34,12 @@ async function start(){
     }else{
         self.postMessage('started,'+movie_id);
         var last_id=0;
+        //初回取得分はスキップ
+        var commentsArray=mameCommentTwitCasting.getCommentData(movie_id,last_id,mameCommentSettingData.tokenId);
+        if(commentsArray.length!=0){
+            last_id=commentsArray[commentsArray.length-1][0];
+        //    self.postMessage(commentsArray);
+        }
         while(true){
             if(stopFlg===1){
                 break;
