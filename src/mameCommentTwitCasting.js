@@ -52,7 +52,8 @@ class MameCommentTwitCasting {
 
     postCommentData(movie_id,comment,sns,ACCESS_TOKEN){
         var result=false;
-        var postData='{"comment" : "'+comment+'", "sns" : "'+sns+'"}';
+        var repComment=comment.replace(/"/g,'\\"');
+        var postData='{"comment" : "'+repComment+'", "sns" : "'+sns+'"}';
         var resultJSON=this.postCommentWrapper(movie_id,postData,ACCESS_TOKEN);
         resultJSON.comment.message=resultJSON.comment.message.replace(/\n/g,'\\n');
         if(resultJSON.comment.created!=null&&resultJSON.comment.ceated!=undefined&&resultJSON.comment.created!=''){

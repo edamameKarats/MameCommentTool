@@ -62,14 +62,16 @@ function getButtonClicked(){
 
 function changeGetButton(message){
     if(message.match(/^started,/)){
+        ipcRenderer.send('debugLog','Worker is started. Change button word to stop and send get started event to main.');
         document.getElementById('getButton').textContent=dictionary["GET_END"];
         getId=message.split(',')[1];
         ipcRenderer.send('getStarted',getId);
     }else if(message=='stopped'){
-        console.log('change to start.');
+        ipcRenderer.send('debugLog','Worker is stopped. Change button word to start and send get stopped event to main.');
         document.getElementById('getButton').textContent=dictionary["GET_START"];
         ipcRenderer.send('getStopped','');
     }else{
+        ipcRenderer.send('debugLog','Comment received from worker. Send notify comment event to main.');
         //コメント送信
         ipcRenderer.send('notifyComment',message);
     }
@@ -77,28 +79,29 @@ function changeGetButton(message){
 
 //ウインドウ系のイベント
 ipcRenderer.on('windowResponse',(ev,message)=>{
+    ipcRenderer.send('debugLog','Window response event received.');
     if(message=='boardOpened'){
-        console.log('Board is opened.');
+        ipcRenderer.send('debugLog','This is Board opened event.');
         document.getElementById('boardButton').classList.add('push');
         document.getElementById("BOARD_").innerText=dictionary["BOARD_CLOSE"];
     }else if(message=='boardClosed'){
-        console.log('Board is closed.');
+        ipcRenderer.send('This is Board closed event.');
         document.getElementById('boardButton').classList.remove('push');
         document.getElementById("BOARD_").innerText=dictionary["BOARD_OPEN"];
     }else if(message=='viewerOpened'){
-        console.log('Viewer is opened.');
+        ipcRenderer.send('This is Viewer opened event.');
         document.getElementById('viewerButton').classList.add('push');
         document.getElementById("VIEWER_").innerText=dictionary["VIEWER_CLOSE"];
     }else if(message=='viewerClosed'){
-        console.log('Viewer is closed.');
+        ipcRenderer.send('debugLog','This is Viewer closed event.');
         document.getElementById('viewerButton').classList.remove('push');
         document.getElementById("VIEWER_").innerText=dictionary["VIEWER_OPEN"];
     }else if(message=='settingOpened'){
-        console.log('Setting is opened.');
+        ipcRenderer.send('debugLog','This is Setting opened event.');
         document.getElementById('settingButton').classList.add('push');
         document.getElementById("SETTING_").innerText=dictionary["SETTING_CLOSE"];
     }else if(message=='settingClosed'){
-        console.log('Setting is closed.');
+        ipcRenderer.send('debugLog','This is Setting closed event.');
         document.getElementById('settingButton').classList.remove('push');
         document.getElementById("SETTING_").innerText=dictionary["SETTING_OPEN"];
     }
@@ -106,12 +109,13 @@ ipcRenderer.on('windowResponse',(ev,message)=>{
 
 //設定情報の更新要求を受信
 ipcRenderer.on('settingUpdate',(ev,message)=>{
-    console.log('update received');
+    ipcRenderer.send('debugLog','Setting update event received.');
     var tokenChangeFlg=0;
     if (mameCommentSettingData.tokenId != message.tokenId) tokenChangeFlg=1;
     mameCommentSettingData.setFromJson(message);
     //token情報が更新されている場合、ユーザー情報を取り直す
     if(tokenChangeFlg==1){
+        ipcRenderer.send('Token is changed. Re-get user information.');
         //ユーザー情報の取得
         var userData=mameCommentTwitCasting.getSelfData(mameCommentSettingData.tokenId);
         document.getElementById("accountUserName").innerText=userData[0];
@@ -122,7 +126,8 @@ ipcRenderer.on('settingUpdate',(ev,message)=>{
 
 //POSTリクエストを受信
 ipcRenderer.on('postRequest',(ev,message)=>{
-    console.log('post request received.');
+    ipcRenderer.send('debugLog','Post request received.');
+    ipcRenderer.send('debugLog','Comment: '+message);
     mameCommentTwitCasting.postCommentData(getId,message,'none',mameCommentSettingData.tokenId);
 });
 
@@ -142,5 +147,5 @@ document.getElementById("SETTING_").innerText=dictionary["SETTING_OPEN"];
 
 
 //準備完了を通知
-console.log('send mainReady event.');
+ipcRenderer.send('debugLog','Send main ready event to main.');
 ipcRenderer.send('mainReady','');

@@ -75,6 +75,7 @@ function sendButtonClicked(){
     var commentValue=textArea.value;
     if(textArea.value!=''){
         ipcRenderer.send('debugLog','Comment area is not blank. Send submit comment event to main.');
+        ipcRenderer.send('debugLog','Comment: '+commentValue);
         ipcRenderer.send('submitComment',commentValue);
     }
     ipcRenderer.send('debugLog','Refresh text area.');
