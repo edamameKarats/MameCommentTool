@@ -153,6 +153,7 @@ document.getElementById("SETTING_").style.fontSize='13px';
 
 //Windowsの場合、ボタンの配置をずらす必要があるが、Styleからうまく取ってこれないのでここに固定で記述する・・・
 if(process.platform=='win32'){
+    document.getElementById('getButton').style.left='413px';//-5px
     document.getElementById('viewerButton').style.left='166px';//-3px
     document.getElementById('settingButton').style.left='327px';//-6px
 }
