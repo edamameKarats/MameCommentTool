@@ -205,7 +205,12 @@ function createMainWindow() {
       nodeIntegrationInWorker: true
     }
   });
+  //画面配置が少しWindowsとMacで異なるので、Windowsの場合画面サイズを拡張する
+  if(process.platform=='win32'){
+    mainWindow.setBounds({height:(mainWindow.getBounds().height+5)});    
+  }
 
+  mainWindow.setMenu(null);
   //メインのウインドウのファイル定義
   mainWindow.loadURL(`file://${__dirname}/mameCommentMain.html`);
 
@@ -252,7 +257,7 @@ function createBoardWindow(){
     }
   }
   boardWindow = new BrowserWindow(boardOption);
-
+  boardWindow.setMenu(null);
   //ボードのファイル定義
   boardWindow.loadURL(`file://${__dirname}/mameCommentBoard.html`);
 
@@ -329,7 +334,7 @@ function createViewerWindow(){
     }
   }
   viewerWindow = new BrowserWindow(viewerOption);
-
+  viewerWindow.setMenu(null);
   //ビューワーのファイル定義
   viewerWindow.loadURL(`file://${__dirname}/mameCommentViewer.html`);
 
@@ -432,7 +437,7 @@ function createSettingWindow(){
 
   //設定のファイル定義
   settingWindow.loadURL(`file://${__dirname}/mameCommentSetting.html`);
-
+  settingWindow.setMenu(null);
   // Open the DevTools.
   if(debugFlg=='ON'){
     settingWindow.webContents.openDevTools()
@@ -502,7 +507,7 @@ function createRegistWindow(){
   });
   //ボードのファイル定義
   registWindow.loadURL(`file://${__dirname}/mameCommentRegist.html`);
-  
+  registWindow.setMenu(null);
   // Open the DevTools.
   if(debugFlg=='ON'){
     registWindow.webContents.openDevTools();

@@ -1,7 +1,7 @@
 class MameCommentConstants{
     constructor(){
-        this._GET_START="取得開始";
-        this._GET_END="取得停止";
+        this._GET_START="取得\n開始";
+        this._GET_END="取得\n停止";
         this._BOARD_OPEN="ボードを開く";
         this._BOARD_CLOSE="ボードを閉じる";
         this._VIEWER_OPEN="ビューワーを開く";

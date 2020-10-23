@@ -1,6 +1,6 @@
 var dictionary={
-    GET_START: '取得開始',
-    GET_END: '取得停止',
+    GET_START: '取得\n開始',
+    GET_END: '取得\n停止',
     BOARD_OPEN: 'ボードを開く',
     BOARD_CLOSE: 'ボードを閉じる',
     VIEWER_OPEN: 'ビューワーを開く',

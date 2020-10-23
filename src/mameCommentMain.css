@@ -34,8 +34,10 @@
 }
 #getButton{
     position:absolute;
-    top:108px;
-    left:415px;
+    top:89px;
+    left:420px;
+    width:65px;
+    white-space: pre-wrap;
 }
 
 #boardButton{

@@ -145,12 +145,17 @@ document.getElementById("BOARD_").innerText=dictionary["BOARD_OPEN"];
 document.getElementById("VIEWER_").innerText=dictionary["VIEWER_OPEN"];
 document.getElementById("SETTING_").innerText=dictionary["SETTING_OPEN"];
 
-//ボタンの文字サイズはWindowsとMacで違うので、サイズを変える
+//ボタンの文字サイズはWindowsとMacで違うので、サイズを少し小さくしておく
 document.getElementById("GET_").style.fontSize='13px';
 document.getElementById("BOARD_").style.fontSize='13px';
 document.getElementById("VIEWER_").style.fontSize='13px';
 document.getElementById("SETTING_").style.fontSize='13px';
 
+//Windowsの場合、ボタンの配置をずらす必要があるが、Styleからうまく取ってこれないのでここに固定で記述する・・・
+if(process.platform=='win32'){
+    document.getElementById('viewerButton').style.left='166px';//-3px
+    document.getElementById('settingButton').style.left='327px';//-6px
+}
 
 //準備完了を通知
 ipcRenderer.send('debugLog','Send main ready event to main.');

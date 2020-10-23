@@ -10,7 +10,7 @@ const dictionary =require('./dictionary/ja');
 document.getElementById("SAVE").innerText=dictionary["SAVE"];
 document.getElementById("CANSEL").innerText=dictionary["CANSEL"];
 
-//WindowsとMacでフォントが違うのでサイズ指定
+//ボタンの文字サイズはWindowsとMacで違うので、サイズを少し小さくしておく
 document.getElementById("SAVE").style.fontSize='13px';
 document.getElementById("CANSEL").style.fontSize='13px';
 

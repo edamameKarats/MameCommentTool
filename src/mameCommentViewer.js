@@ -13,7 +13,7 @@ document.getElementById("NAME").innerText=dictionary["NAME"];
 document.getElementById("COMMENT").innerText=dictionary["COMMENT"];
 document.getElementById("sendButton").value=dictionary["SEND_COMMENT"];
 
-//WindowsとMacでフォントが違うのでサイズ指定
+//ボタンの文字サイズはWindowsとMacで違うので、サイズを少し小さくしておく
 document.getElementById("sendButton").style.fontSize='13px';
 
 
