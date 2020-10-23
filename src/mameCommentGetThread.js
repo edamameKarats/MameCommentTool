@@ -19,9 +19,9 @@ function chkMovie(){
         return movie_id='ユーザーが見つかりませんでした。';
     }
     if(movieData[1]==false){
-//        return movie_id='ユーザーは現在放送中ではありません。';
+        return movie_id='ユーザーは現在放送中ではありません。';
 //test logic
-        return movieData[0];
+//        return movieData[0];
     }
     return movieData[0];
 }
