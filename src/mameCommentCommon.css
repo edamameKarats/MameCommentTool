@@ -1,8 +1,10 @@
 body{
-    font-family: "游ゴシック体", "Yu Gothic", YuGothic, "ヒラギノ角ゴ Pro", "Hiragino Kaku Gothic Pro", "メイリオ", "Meiryo", "sans-serif", "Arial";
+    font-family: "sans-serif", "Arial";
+    font-size: 16px;
 }
 span{
-    font-family: "游ゴシック体", "Yu Gothic", YuGothic, "ヒラギノ角ゴ Pro", "Hiragino Kaku Gothic Pro", "メイリオ", "Meiryo", "sans-serif", "Arial";
+    font-family: "sans-serif", "Arial";
+    font-size: 16px;
 }
 .base{
     color: #302833;
@@ -20,6 +22,7 @@ span{
     -webkit-app-region: no-drag;
     background: linear-gradient( #72e2aa,  #95eabf);
 }
+
 
 .push{
     background: linear-gradient( #1d8d55,  #23b16a);

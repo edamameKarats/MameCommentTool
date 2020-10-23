@@ -13,6 +13,11 @@ document.getElementById("NAME").innerText=dictionary["NAME"];
 document.getElementById("COMMENT").innerText=dictionary["COMMENT"];
 document.getElementById("sendButton").value=dictionary["SEND_COMMENT"];
 
+//WindowsとMacでフォントが違うのでサイズ指定
+document.getElementById("sendButton").style.fontSize='13px';
+
+
+
 const timeTarget = document.getElementsByName("timeHead")[0];
 const timeObserver = new MutationObserver(() => {
     const timeChange =document.getElementsByName("timeColumn");

@@ -15,6 +15,10 @@ document.getElementById("BOARD_TRANS_CHANGE").innerText=dictionary["BOARD_TRANS_
 document.getElementById("ALWAYS_ON_TOP").innerText=dictionary["ALWAYS_ON_TOP"];
 document.getElementById("CLOSE").innerText=dictionary["CLOSE"];
 
+//WindowsとMacでフォントが違うのでサイズ指定
+document.getElementById("BOARD_TRANS_CHANGE").style.fontSize='13px';
+document.getElementById("CLOSE").style.fontSize='13px';
+
 
 function setValueFromSettingData(){
     ipcRenderer.send('debugLog','Set values.');

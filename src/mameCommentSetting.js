@@ -5,6 +5,16 @@ const ipcRenderer = require( 'electron' ).ipcRenderer;
 
 let mameCommentSettingData=new MameCommentSettingData();
 
+//TODO いずれはここで言語によって切り替えたい(切り替えるときは再起動前提)
+const dictionary =require('./dictionary/ja');
+document.getElementById("SAVE").innerText=dictionary["SAVE"];
+document.getElementById("CANSEL").innerText=dictionary["CANSEL"];
+
+//WindowsとMacでフォントが違うのでサイズ指定
+document.getElementById("SAVE").style.fontSize='13px';
+document.getElementById("CANSEL").style.fontSize='13px';
+
+
 function save(){
     ipcRenderer.send('debugLog','Close with save.');
     saveValueToSettingData();

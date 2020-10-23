@@ -63,7 +63,6 @@ self.addEventListener('message',(message)=>{
     }else{
         if(typeof message.data == 'string'){
             var messageData=message.data.split(';');
-            console.log(messageData[0]);
             if(messageData[0]=='user'){
                 getUserName=messageData[1];
                 if(messageData.length>2){

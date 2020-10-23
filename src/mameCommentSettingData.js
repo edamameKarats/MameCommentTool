@@ -72,7 +72,6 @@ class MameCommentSettingData {
     }
 
     setFromJson(jsonString){
-        console.log('set called.');
         var keys=Object.keys(jsonString);
         for(var i=0;i<keys.length;i++){
             if(eval('typeof this.'+keys[i]+'!==\'undefined\'')){
@@ -85,9 +84,7 @@ class MameCommentSettingData {
 
     copyUrlToToken(){
         if(this.replyUrl.match(/access_token=/)){
-            console.log('replyURL='+this.replyUrl);
             this.tokenId=(this.replyUrl.split('access_token=')[1]).split('&')[0];
-            console.log('replyURL='+this.replyUrl);
         }else{
             this.tokenId='';
         }
