@@ -29,7 +29,7 @@ function settingButtonClicked(){
 
 function getButtonClicked(){
     ipcRenderer.send('debugLog','Get button is clicked.')
-    if (document.getElementById('getButton').textContent==dictionary["GET_START"]){
+    if (!document.getElementById('getButton').classList.contains('getStarted')){
         ipcRenderer.send('debugLog','Start to get comment.')
         var getScreen=document.getElementById('movieUserId').value;
         ipcRenderer.send('debugLog','Target user is '+getScreen+', Current user is '+document.getElementById("accountUserId").innerText+'.');
@@ -51,12 +51,14 @@ function getButtonClicked(){
             getThread.postMessage('user;'+getScreen);
             getThread.postMessage(mameCommentSettingData);
             getThread.postMessage('startRequest');
+            document.getElementById('getButton').classList.add('getStarted');
         }else{
             ipcRenderer.send('errorLog','Target user: '+getScreen + ' or, Current user: '+document.getElementById("accountUserId").innerText+' is not defined correctly.');
         }
-    }else if (document.getElementById('getButton').textContent==dictionary["GET_END"]){
+    }else{
         ipcRenderer.send('debugLog','Stop to get.')
         getThread.postMessage('stopRequest');
+        document.getElementById('getButton').classList.remove('getStarted');
     }
 }
 
