@@ -1,5 +1,9 @@
 @import url(./mameCommentCommon.css);
 
+body::-webkit-scrollbar {
+  display: none;
+}
+
 #titleImage{
     position:absolute;
     top:5px;
@@ -35,7 +39,7 @@
 #getButton{
     position:absolute;
     top:89px;
-    left:420px;
+    left:413px;
     width:65px;
     white-space: pre-wrap;
 }

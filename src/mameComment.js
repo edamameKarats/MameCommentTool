@@ -32,6 +32,7 @@ let settingWindowFlag=0;
 let logFd;
 let commentFd;
 
+
 //設定クラスの作成と、初期読み込みをここで実行
 let mameCommentSettingData=new MameCommentSettingData();
 mameCommentSettingData.readFromIni();
@@ -198,17 +199,25 @@ ipcMain.on ( 'notifyComment', (ev, message)=>{
 // メインのウインドウを開いていく
 function createMainWindow() {
   writeInfoLog('[main process] Start to open Main window.');
-  mainWindow = new BrowserWindow({
-    width: 493, height: 200,resizable: false,
-    webPreferences:{
-      nodeIntegration: true,
-      nodeIntegrationInWorker: true
-    }
-  });
   //画面配置が少しWindowsとMacで異なるので、Windowsの場合画面サイズを拡張する
   if(process.platform=='win32'){
-    mainWindow.setBounds({height:(mainWindow.getBounds().height+5)});    
+    options={
+      width: 493, height: 205,resizable: false,
+      webPreferences:{
+        nodeIntegration: true,
+        nodeIntegrationInWorker: true
+      }
+    };
+  }else{
+    options={
+      width: 493, height: 200,resizable: false,
+      webPreferences:{
+        nodeIntegration: true,
+        nodeIntegrationInWorker: true
+      }
+    };
   }
+  mainWindow = new BrowserWindow(options);
 
   mainWindow.setMenu(null);
   //メインのウインドウのファイル定義
