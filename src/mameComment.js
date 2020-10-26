@@ -7,8 +7,8 @@ const MameCommentCommon=require('./mameCommentCommon');
 let mameCommentCommon=new MameCommentCommon();
 
 //デバッグフラグ
-let debugFlg='ON';
-//let debugFlg='OFF';
+//let debugFlg='ON';
+let debugFlg='OFF';
 
 //各ウインドウを定義
 let mainWindow=null;
