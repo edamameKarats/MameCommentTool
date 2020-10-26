@@ -51,8 +51,8 @@ async function start(){
             }
             await sleep(1000);
         }
+        self.postMessage('stopped');
     }
-    self.postMessage('stopped');
 }
 
 self.addEventListener('message',(message)=>{

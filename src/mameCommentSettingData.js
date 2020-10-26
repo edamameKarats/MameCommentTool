@@ -29,7 +29,8 @@ class MameCommentSettingData {
     }
 
     readFromIni(){
-        let data=fs.readFileSync(__dirname+'/mameCommentSetting.ini','utf8');
+        var setFd=fs.openSync(__dirname+'/mameCommentSetting.ini','r');
+        let data=fs.readFileSync(setFd,'utf8');
         let ary=data.split('\n');
         for (var i=0;i<ary.length;i++){
             var lineData=ary[i].split('=');
@@ -47,6 +48,7 @@ class MameCommentSettingData {
                 }
             }
         }
+        fs.closeSync(setFd);
     }
 
     writeToIni(){
@@ -68,14 +70,16 @@ class MameCommentSettingData {
         data=data+'viewerTime='+this.viewerTime+'\n';
         data=data+'viewerImage='+this.viewerImage+'\n';
         data=data+'viewerName='+this.viewerName+'\n';
-        fs.writeFileSync(__dirname+'/mameCommentSetting.ini',data,'utf8');
+        var setFd=fs.openSync(__dirname+'/mameCommentSetting.ini','w');
+        fs.writeFileSync(setFd,data,'utf8');
+        fs.closeSync(setFd);
     }
 
     setFromJson(jsonString){
         var keys=Object.keys(jsonString);
         for(var i=0;i<keys.length;i++){
             if(eval('typeof this.'+keys[i]+'!==\'undefined\'')){
-                if(eval('jsonString.'+keys[i]+'!=\'\'')){
+                if(eval('jsonString.'+keys[i]+'!==\'\'')){
                     eval('this.'+keys[i]+'=jsonString.'+keys[i]);
                 }
             }

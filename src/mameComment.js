@@ -7,8 +7,8 @@ const MameCommentCommon=require('./mameCommentCommon');
 let mameCommentCommon=new MameCommentCommon();
 
 //デバッグフラグ
-//let debugFlg='ON';
-let debugFlg='OFF';
+let debugFlg='ON';
+//let debugFlg='OFF';
 
 //各ウインドウを定義
 let mainWindow=null;
@@ -54,6 +54,7 @@ ipcMain.on( 'settingUpdate', ( ev, message ) => {
   src=ev.sender.webContents.history[0].split('/').pop();
   mameCommentSettingData.setFromJson(message);
   mameCommentSettingData.writeToIni();
+  mameCommentSettingData.readFromIni();
   //設定クラスの変更をOpenしている各クラスに通知する
   if(mainWindowFlag==1&&src!="mameCommentMain.html"){
     mainWindow.webContents.send('settingUpdate',mameCommentSettingData);
@@ -162,13 +163,13 @@ ipcMain.on( 'getStarted', (ev, message)=>{
 //ワーカースレッドから、開始した連絡を受けたらフラグを消す
 ipcMain.on( 'getStopped', (ev, message)=>{
   writeInfoLog('[main process] Worker stopped event received.');
-  getFlag=0;
-  movie_id='';
-  //ログフラグがONならログファイルを閉じる
-  if(mameCommentSettingData.logFlg==true&&mameCommentSettingData.logPath!=''){
+  //ログフラグがONならログファイルを閉じる ワーカーがいきなり止まった時はきちんとスキップできるようにする
+  if(mameCommentSettingData.logFlg==true&&mameCommentSettingData.logPath!=''&&getFlag==1){
     writeInfoLog('[main process] Log flg is ON. Close comment log file.');
     mameCommentCommon.closeLog(commentFd);
   }
+  getFlag=0;
+  movie_id='';
 });
 
 
@@ -473,13 +474,6 @@ ipcMain.on('settingReady', (ev,message)=>{
   mainWindow.webContents.send('windowResponse','settingOpened');
 });
 
-//設定変更を受信したときの動作
-ipcMain.on('settingUpdate', (ev,message)=>{
-  writeDebugLog('[main process] Setting update event received.');
-  mameCommentSettingData.setFromJson(message);
-});
-
-
 //設定を閉じる
 function closeSettingWindow(){
   writeDebugLog('[main process] Setting close function called. Close Setting.');
@@ -539,7 +533,7 @@ ipcMain.on('infoLog',(ev,message)=>{
   writeInfoLog('['+ev.sender.getURL().split('/').pop().split('.')[0]+'] '+message);
 });
 //エラーログ出力リクエストを受けたときの動作
-ipcMain.on('errLog',(ev,message)=>{
+ipcMain.on('errorLog',(ev,message)=>{
   writeErrorLog('['+ev.sender.getURL().split('/').pop().split('.')[0]+'] '+message);
 });
 
@@ -556,8 +550,8 @@ function writeInfoLog(logMessage){
 }
 //エラーログ出力
 function writeErrorLog(logMessage){
-  dialog.showErrorBox('Error','logMessage');
   mameCommentCommon.writeLog('[!!!Error!!!] '+logMessage,logFd);
+  dialog.showErrorBox('Error',logMessage);
 }
 //コメント配列処理
 //形式：[[slice_id,created,user_image,name,message,screen_id],[],...]
