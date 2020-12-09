@@ -50,8 +50,8 @@ MameComment.appを実行してください。各画面の操作は下記の説�
 ##### ログ出力
 対象のファイルにログを出力するかどうかを設定します。説明上未実装となっていますが、現在は出力可能です。(ただし、試験運用中)  
 出力する場合はチェックボックスをONにし、ファイル名を入力してください。  
-Windowsの場合は プログラム配置フォルダ¥Resources¥app¥ に出力されます。  
-Macの場合は Appファイルフォルダ/Resources/app/ に出力されます。(パッケージの内容を表示する、でAppファイル以下に進んでください)
+Windows： プログラム配置フォルダ¥resources¥app¥ に出力されます。  
+Mac    ： Appファイルフォルダ/Resources/app/ に出力されます。(パッケージの内容を表示する、でAppファイル以下に進んでください)
 ##### [保存][キャンセル]ボタン
 設定を保存、もしくは破棄して設定ウインドウを閉じます。他のタブの設定が完了したら実行してください。
 #### [ボード]タブ
@@ -86,8 +86,11 @@ Macの場合は Appファイルフォルダ/Resources/app/ に出力されます
 140文字までの制限があり、表示されていますので超えないように入力してください。
 #### [コメント送信]ボタン
 コメントを送信します。
+### その他
+認証などのキャッシュ情報などをクリアして初期状態から起動したい場合は、以下フォルダの内容を削除してください。
+Windows：C:\Users\ユーザー名\AppData\Roaming\mame_comment  
+Mac    ：/Users/ユーザー名/Application Support/mame_comment
 ## Licence
 Apache License 2.0(http://www.apache.org/licenses/)
-
 ## Author
 [枝豆の人](https://twitter.com/edamameKarats http://edamame-karats.seesaa.net/)
