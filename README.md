@@ -87,7 +87,7 @@ Mac    ： Appファイルフォルダ/Resources/app/ に出力されます。(�
 #### [コメント送信]ボタン
 コメントを送信します。
 ### その他
-認証などのキャッシュ情報などをクリアして初期状態から起動したい場合は、以下フォルダの内容を削除してください。
+認証などのキャッシュ情報などをクリアして初期状態から起動したい場合は、以下フォルダの内容を削除してください。  
 Windows：C:\Users\ユーザー名\AppData\Roaming\mame_comment  
 Mac    ：/Users/ユーザー名/Application Support/mame_comment
 ## Licence
