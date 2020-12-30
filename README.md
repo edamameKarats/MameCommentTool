@@ -90,6 +90,11 @@ Mac    ： Appファイルフォルダ/Resources/app/ に出力されます。(�
 認証などのキャッシュ情報などをクリアして初期状態から起動したい場合は、以下フォルダの内容を削除してください。  
 Windows：C:\Users\ユーザー名\AppData\Roaming\mame_comment  
 Mac    ：/Users/ユーザー名/Application Support/mame_comment
+## Known Issues
+配信を行っていないユーザーの場合、ログファイル関連のエラーが出ることがある(Windowsのみ？)  
+配信が終了しても、接続状態が続く(これは仕様となる予定)  
+ボードにて、改行が2つ以上続けて送られてきた場合に、1個に圧縮されてしまう  
+ビューワーにて、\の入力ができない
 ## Licence
 Apache License 2.0(http://www.apache.org/licenses/)
 ## Author
