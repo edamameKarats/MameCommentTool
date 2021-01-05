@@ -106,7 +106,10 @@ function sendComment(comment){
                 if(commentText[i].hasChildNodes()){
                     commentText[i].removeChild();
                 }
-                //幅が変になるので、うまく改行するために色々する
+                //幅が変になるので、うまく改行するために色々するが、改行が連続している場合に困るので、全角スペースを入れるようにする
+                comment=comment.replace(/^\n/g,'　\n');
+                comment=comment.replace(/\n\n/g,'\n　\n');
+                comment=comment.replace(/\n\n/g,'\n　\n');
                 var lines=comment.split('\n');
                 var tmpDiv=document.createElement('div');
                 var maxLength=0;
@@ -120,7 +123,7 @@ function sendComment(comment){
                     }
                     commentArea.removeChild(tmpDiv);
                     if(j==0){
-                        commentText[i].textContent=lines[0];
+                        commentText[i].textContent=lines[0].replace(/^　$/,'');
                     }else{
                         var tmpSpan=document.createElement('div');
                         tmpSpan.textContent=lines[j];
